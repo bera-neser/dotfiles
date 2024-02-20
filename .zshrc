@@ -266,5 +266,7 @@ fi
 
 alias df='df -h'
 
-export GOPATH=/usr/local/go
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/.go
+[[ ":$PATH:" != *":$GOROOT/bin:"* ]] && export PATH=$PATH:$GOROOT/bin
 [[ ":$PATH:" != *":$GOPATH/bin:"* ]] && export PATH=$PATH:$GOPATH/bin
