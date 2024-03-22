@@ -246,7 +246,8 @@ alias rmrf='rm -rfi'
 alias b64='base64'
 alias eth0="ifconfig | grep -A1 eth0 | grep inet | sed 's/^ *//g' | cut -d ' ' -f2"
 alias tun0="ifconfig | grep -A1 tun0 | grep inet | sed 's/^ *//g' | cut -d ' ' -f2"
-alias allports='echo "nmap -p- --open --min-rate=1000 -T4 $IP | grep ^[0-9] | cut -d \"/\" -f 1 | tr \"\\\n\" \",\" | sed s/,$//"'
+alias allports='ports=$(sudo nmap -Pn -p- --open --min-rate=1000 -T4 $IP | grep ^[0-9] | cut -d "/" -f 1 | tr "\n" "," | sed s/,$//)'
+alias scan='sudo nmap -A -p$ports $IP -oN nmap/initial'
 alias httpserver='python -m http.server 80'
 alias copy='xclip -selection clipboard -rmlastnl'
 
