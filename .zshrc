@@ -234,25 +234,6 @@ if [ -x /usr/bin/dircolors ]; then
     zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 fi
 
-# added by me start
-
-alias lla='ls -lA'
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-alias cl='clear'
-alias rm='rm -i'
-alias rmrf='rm -rfi'
-alias b64='base64'
-alias eth0="ifconfig | grep -A1 eth0 | grep inet | sed 's/^ *//g' | cut -d ' ' -f2"
-alias tun0="ifconfig | grep -A1 tun0 | grep inet | sed 's/^ *//g' | cut -d ' ' -f2"
-alias allports='ports=$(sudo nmap -Pn -p- --open --min-rate=1000 -T4 $IP | grep ^[0-9] | cut -d "/" -f 1 | tr "\n" "," | sed s/,$//)'
-alias scan='sudo nmap -A -p$ports $IP -oN nmap/initial'
-alias httpserver='python -m http.server 80'
-alias copy='xclip -selection clipboard -rmlastnl'
-
-# added by me finish
-
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -265,9 +246,30 @@ if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
 
+# added by me start
+
+alias lla='ls -lA'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+alias cl='clear'
 alias df='df -h'
+alias rm='rm -i'
+alias rmrf='rm -rfi'
+alias b64='base64'
+alias eth0="ifconfig | grep -A1 eth0 | grep inet | sed 's/^ *//g' | cut -d ' ' -f2"
+alias tun0="ifconfig | grep -A1 tun0 | grep inet | sed 's/^ *//g' | cut -d ' ' -f2"
+alias allports='ports=$(sudo nmap -Pn -p- --open --min-rate=1000 -T4 $IP | grep ^[0-9] | cut -d "/" -f 1 | tr "\n" "," | sed s/,$//)'
+alias scan='sudo nmap -A -p$ports $IP -oN nmap/initial'
+alias httpserver='python -m http.server 80'
+alias copy='xclip -selection clipboard -rmlastnl'
 
 export GOROOT=/usr/local/go
-export GOPATH=$HOME/.go
-[[ ":$PATH:" != *":$GOROOT/bin:"* ]] && export PATH=$PATH:$GOROOT/bin
-[[ ":$PATH:" != *":$GOPATH/bin:"* ]] && export PATH=$PATH:$GOPATH/bin
+export GOPATH=$HOME/go
+
+export PATH=$PATH:$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:$HOME/.cargo/bin
+
+# Remove duplicate entries from PATH
+typeset -U PATH path
+
+# added by me finish
